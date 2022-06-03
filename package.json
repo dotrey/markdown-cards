@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate-ts",
-  "version": "1.0.0",
-  "description": "Boilerplate to setup development with TypeScript",
+  "name": "markdown-cards",
+  "version": "0.1.0",
+  "description": "Simple Markdown based flashcards.",
   "scripts": {
     "test": "ts-mocha -p ./tsconfig.mocha.json src/**/*.spec.ts",
     "build": "npx rollup --config",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dotrey/boilerplate-ts.git"
+    "url": "git+https://github.com/dotrey/markdown-cards-dev.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dotrey/boilerplate-ts/issues"
+    "url": "https://github.com/dotrey/markdown-cards-dev/issues"
   },
-  "homepage": "https://github.com/dotrey/boilerplate-ts#readme",
+  "homepage": "https://github.com/dotrey/markdown-cards-dev#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-node-resolve": "^13.3.0",
