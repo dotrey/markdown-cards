@@ -7,7 +7,7 @@ import { SingleCard } from "./CardSetParser.spec";
 describe("Card Set Loader", function () {
     it("loads a single card", function () {
         const loader = new CardSetLoader(new DummyLoader());
-        loader.load("single-card")
+        return loader.load("single-card")
             .then((cardSet) => {
                 expect(cardSet.length).to.be.equal(1);
                 const card = cardSet.card(0);
