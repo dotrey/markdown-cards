@@ -6,6 +6,13 @@ export class CardSet {
     private _abstract: string = "";
     private _file: string = "";
 
+    constructor(cards: Card[], title: string, abstract: string, file: string) {
+        this.cards = cards;
+        this._title = title;
+        this._abstract = abstract;
+        this._file = file;
+    }
+
     get length(): number {
         return this.cards.length;
     }

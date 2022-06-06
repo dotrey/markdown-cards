@@ -1,13 +1,20 @@
 import { CardSide } from "./CardSide";
 
 export class Card {
-
-    sideA(): CardSide {
-        return new CardSide();
+    private _sideA: CardSide;
+    private _sideB: CardSide;
+    
+    constructor(sideA: CardSide, sideB: CardSide) {
+        this._sideA = sideA;
+        this._sideB = sideB;
     }
 
-    sideB(): CardSide {
-        return new CardSide();
+    get sideA(): CardSide {
+        return this._sideA;
+    }
+
+    get sideB(): CardSide {
+        return this._sideB;
     }
 
 }
