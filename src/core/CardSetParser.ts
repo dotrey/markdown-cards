@@ -13,8 +13,9 @@ import { CardSideBuilder } from "./CardSideBuilder";
  * work either an will remain unchangend.
  */
 export class CardSetParser {
-    parse(source: string): CardSet {
+    parse(source: string, file: string = ""): CardSet {
         let setBuilder: CardSetBuilder = new CardSetBuilder();
+        setBuilder.setFile(file);
         let sideBuilder: CardSideBuilder = new CardSideBuilder();
         let state: number = 0;
         let sides: CardSide[] = [];
