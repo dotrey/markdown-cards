@@ -1,7 +1,7 @@
-import { FileLoader } from "../file/FileLoader";
-import { CardSet } from "./CardSet";
+import { CardSet } from "../model/CardSet";
 import { CardSetBuilder } from "./CardSetBuilder";
 import { CardSetParser } from "./CardSetParser";
+import { FileLoader } from "./FileLoader";
 
 export class CardSetLoader {
     private parser: CardSetParser;

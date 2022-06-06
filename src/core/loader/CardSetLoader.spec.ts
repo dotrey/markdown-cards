@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import "mocha";
-import { FileLoader } from "../file/FileLoader";
 import { CardSetLoader } from "./CardSetLoader";
 import { SingleCard } from "./CardSetParser.spec";
+import { FileLoader } from "./FileLoader";
 
 describe("Card Set Loader", function () {
     it("loads a single card", function () {

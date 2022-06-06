@@ -1,7 +1,7 @@
-import { Card } from "./Card";
-import { CardSet } from "./CardSet";
+import { Card } from "../model/Card";
+import { CardSet } from "../model/CardSet";
+import { CardSide } from "../model/CardSide";
 import { CardSetBuilder } from "./CardSetBuilder";
-import { CardSide } from "./CardSide";
 import { CardSideBuilder } from "./CardSideBuilder";
 
 /**

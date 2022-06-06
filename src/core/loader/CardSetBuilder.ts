@@ -1,6 +1,6 @@
-import { Card } from "./Card";
-import { CardSet } from "./CardSet";
-import { CardSide } from "./CardSide";
+import { Card } from "../model/Card";
+import { CardSet } from "../model/CardSet";
+import { CardSide } from "../model/CardSide";
 
 export class CardSetBuilder {
 

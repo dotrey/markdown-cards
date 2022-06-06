@@ -1,4 +1,4 @@
-import { CardSide } from "./CardSide";
+import { CardSide } from "../model/CardSide";
 
 export class CardSideBuilder {
     private _hasContent: boolean = false;
