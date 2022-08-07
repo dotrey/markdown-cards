@@ -119,6 +119,29 @@ describe("Card Set Parser", function () {
         expect(card1.sideB.titleRaw).to.be.equal("Side B1");
         expect(card1.sideB.bodyRaw).to.be.equal("# Another l1 heading");
     });
+
+    it("trims whitespaces at start and end", function () {
+        const parser = new CardSetParser();
+        const cardSet = parser.parse(TrimmableWhitespace);
+
+        expect(cardSet.length).to.be.equal(2);
+        expect(cardSet.title).to.be.equal("Samples with lot of whitespace");
+        expect(cardSet.abstract).to.be.equal("");
+        
+        const card1 = cardSet.card(0);
+        expect(card1).to.be.not.undefined;
+        expect(card1.sideA.titleRaw).to.be.equal("Side A1");
+        expect(card1.sideA.bodyRaw).to.be.equal("Card 1 Side A");
+        expect(card1.sideB.titleRaw).to.be.equal("Side B1");
+        expect(card1.sideB.bodyRaw).to.be.equal("Card 1 Side B");
+
+        const card2 = cardSet.card(1);
+        expect(card2).to.be.not.undefined;
+        expect(card2.sideA.titleRaw).to.be.equal("Side A2");
+        expect(card2.sideA.bodyRaw).to.be.equal("Card 2 Side A");
+        expect(card2.sideB.titleRaw).to.be.equal("Side B2");
+        expect(card2.sideB.bodyRaw).to.be.equal("Card 2 Side B");
+    });
 });
 
 export const SingleCard = `## Side A
@@ -182,4 +205,23 @@ Abstract
 ## Side A1
 ### Side B1
 
-# Another l1 heading`
+# Another l1 heading`;
+
+export const TrimmableWhitespace = `# Samples with lot of whitespace
+
+##   Side A1  
+
+Card 1 Side A
+
+###  Side B1
+
+    Card 1 Side B
+    
+## Side A2   
+   Card 2 Side A   
+
+###  Side B2   
+
+  Card 2 Side B
+  
+`;

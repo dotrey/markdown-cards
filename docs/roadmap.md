@@ -1,7 +1,7 @@
 # Roadmap for Markdown Cards
 
 ## 01 - Parsing Flashcard Files
-__Reached:__ -
+__Reached:__ 2022-08-07
 
 __Scope:__
 - Load a flashcard file

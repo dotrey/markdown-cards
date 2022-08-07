@@ -8,7 +8,7 @@ export class CardSideBuilder {
 
     private title: string = "";
     setTitle(value: string) {
-        this.title = value;
+        this.title = value.trim();
         this._hasContent = true;
         return this;
     }
@@ -16,14 +16,14 @@ export class CardSideBuilder {
         if (this.title) {
             this.title += "\n";
         }
-        this.title += value;
+        this.title += value.trim();
         this._hasContent = true;
         return this;
     }
 
     private body: string = "";
     setBody(value: string) {
-        this.body = value;
+        this.body = value.trim();
         this._hasContent = true;
         return this;
     }
@@ -31,7 +31,7 @@ export class CardSideBuilder {
         if (this.body) {
             this.body += "\n";
         }
-        this.body += value;
+        this.body += value.trim();
         this._hasContent = true;
         return this;
     }
@@ -42,7 +42,7 @@ export class CardSideBuilder {
         let bodyText: string = this.body;
         let titleHtml: string = this.title;
         let bodyHtml: string = this.body;
-        return new CardSide(this.title, titleText, titleHtml, this.body, bodyText, bodyHtml);
+        return new CardSide(this.title.trim(), titleText, titleHtml, this.body.trim(), bodyText, bodyHtml);
     }
 
     reset() {
