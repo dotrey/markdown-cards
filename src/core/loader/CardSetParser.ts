@@ -94,7 +94,7 @@ export class CardSetParser {
             }
 
             // Add the card with the previously collected sides to the set
-            setBuilder.addCard(new Card(sides[0], sides[1]));
+            setBuilder.addCard(new Card(sides));
             sides.length = 0;
         }
     }

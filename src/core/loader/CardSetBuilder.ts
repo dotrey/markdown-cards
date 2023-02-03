@@ -49,10 +49,14 @@ export class CardSetBuilder {
     buildErrorSet(errorMessage: string, file: string) {
         let cards: Card[] = [];
         let errorTitle: string = "An error occurred"
-        cards.push(new Card(
-            new CardSide(errorTitle, errorTitle, errorTitle, errorMessage, errorMessage, errorMessage),
-            new CardSide(errorTitle, errorTitle, errorTitle, errorMessage, errorMessage, errorMessage)
-        ));
+        cards.push(
+            new Card(
+                [
+                    new CardSide(errorTitle, errorTitle, errorTitle, errorMessage, errorMessage, errorMessage),
+                    new CardSide(errorTitle, errorTitle, errorTitle, errorMessage, errorMessage, errorMessage)
+                ]
+            )
+        );
         return new CardSet(cards, errorTitle, errorMessage, file)
     }
 

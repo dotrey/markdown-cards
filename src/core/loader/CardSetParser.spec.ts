@@ -10,8 +10,8 @@ describe("Card Set Parser", function () {
         expect(cardSet.length).to.be.equal(1);
         const card = cardSet.card(0);
         expect(card).to.be.not.undefined;
-        expect(card.sideA.titleRaw).to.be.equal("Side A");
-        expect(card.sideB.titleRaw).to.be.equal("Side B");
+        expect(card.sides[0].titleRaw).to.be.equal("Side A");
+        expect(card.sides[1].titleRaw).to.be.equal("Side B");
     });
 
     it("parses a set with a single card and title", function () {
@@ -24,8 +24,8 @@ describe("Card Set Parser", function () {
 
         const card = cardSet.card(0);
         expect(card).to.be.not.undefined;
-        expect(card.sideA.titleRaw).to.be.equal("Side A");
-        expect(card.sideB.titleRaw).to.be.equal("Side B");
+        expect(card.sides[0].titleRaw).to.be.equal("Side A");
+        expect(card.sides[1].titleRaw).to.be.equal("Side B");
 
         expect(cardSet.card(1)).to.be.undefined;
     });
@@ -40,18 +40,18 @@ describe("Card Set Parser", function () {
         
         const card1 = cardSet.card(0);
         expect(card1).to.be.not.undefined;
-        expect(card1.sideA.titleRaw).to.be.equal("Side A1");
-        expect(card1.sideB.titleRaw).to.be.equal("Side B1");
+        expect(card1.sides[0].titleRaw).to.be.equal("Side A1");
+        expect(card1.sides[1].titleRaw).to.be.equal("Side B1");
         
         const card2 = cardSet.card(1);
         expect(card2).to.be.not.undefined;
-        expect(card2.sideA.titleRaw).to.be.equal("Side A2");
-        expect(card2.sideB.titleRaw).to.be.equal("Side B2");
+        expect(card2.sides[0].titleRaw).to.be.equal("Side A2");
+        expect(card2.sides[1].titleRaw).to.be.equal("Side B2");
         
         const card3 = cardSet.card(2);
         expect(card3).to.be.not.undefined;
-        expect(card3.sideA.titleRaw).to.be.equal("Side A3");
-        expect(card3.sideB.titleRaw).to.be.equal("Side B3");
+        expect(card3.sides[0].titleRaw).to.be.equal("Side A3");
+        expect(card3.sides[1].titleRaw).to.be.equal("Side B3");
         
         expect(cardSet.card(4)).to.be.undefined;
     });
@@ -66,24 +66,24 @@ describe("Card Set Parser", function () {
         
         const card1 = cardSet.card(0);
         expect(card1).to.be.not.undefined;
-        expect(card1.sideA.titleRaw).to.be.equal("Side A1");
-        expect(card1.sideA.bodyRaw).to.be.equal("Card 1 Side A");
-        expect(card1.sideB.titleRaw).to.be.equal("Side B1");
-        expect(card1.sideB.bodyRaw).to.be.equal("Card 1 Side B");
+        expect(card1.sides[0].titleRaw).to.be.equal("Side A1");
+        expect(card1.sides[0].bodyRaw).to.be.equal("Card 1 Side A");
+        expect(card1.sides[1].titleRaw).to.be.equal("Side B1");
+        expect(card1.sides[1].bodyRaw).to.be.equal("Card 1 Side B");
         
         const card2 = cardSet.card(1);
         expect(card2).to.be.not.undefined;
-        expect(card2.sideA.titleRaw).to.be.equal("Side A2");
-        expect(card2.sideA.bodyRaw).to.be.equal("Card 2 Side A");
-        expect(card2.sideB.titleRaw).to.be.equal("Side B2");        
-        expect(card2.sideB.bodyRaw).to.be.equal("Card 2 Side B Line 1\nCard 2 Side B Line 2");
+        expect(card2.sides[0].titleRaw).to.be.equal("Side A2");
+        expect(card2.sides[0].bodyRaw).to.be.equal("Card 2 Side A");
+        expect(card2.sides[1].titleRaw).to.be.equal("Side B2");        
+        expect(card2.sides[1].bodyRaw).to.be.equal("Card 2 Side B Line 1\nCard 2 Side B Line 2");
         
         const card3 = cardSet.card(2);
         expect(card3).to.be.not.undefined;
-        expect(card3.sideA.titleRaw).to.be.equal("Side A3");
-        expect(card3.sideA.bodyRaw).to.be.equal("Card 3 Side A Line 1\nCard 3 Side A Line 2\nCard 3 Side A Line 3");
-        expect(card3.sideB.titleRaw).to.be.equal("Side B3");
-        expect(card3.sideB.bodyRaw).to.be.equal("Card 3 Side B Line 1\nCard 3 Side B Line 2");
+        expect(card3.sides[0].titleRaw).to.be.equal("Side A3");
+        expect(card3.sides[0].bodyRaw).to.be.equal("Card 3 Side A Line 1\nCard 3 Side A Line 2\nCard 3 Side A Line 3");
+        expect(card3.sides[1].titleRaw).to.be.equal("Side B3");
+        expect(card3.sides[1].bodyRaw).to.be.equal("Card 3 Side B Line 1\nCard 3 Side B Line 2");
         
         expect(cardSet.card(4)).to.be.undefined;
     });
@@ -98,10 +98,10 @@ describe("Card Set Parser", function () {
         
         const card1 = cardSet.card(0);
         expect(card1).to.be.not.undefined;
-        expect(card1.sideA.titleRaw).to.be.equal("Side A1");
-        expect(card1.sideA.bodyRaw).to.be.equal("Card 1 Side A");
-        expect(card1.sideB.titleRaw).to.be.equal("Side B1");
-        expect(card1.sideB.bodyRaw).to.be.equal("Card 1 Side B");
+        expect(card1.sides[0].titleRaw).to.be.equal("Side A1");
+        expect(card1.sides[0].bodyRaw).to.be.equal("Card 1 Side A");
+        expect(card1.sides[1].titleRaw).to.be.equal("Side B1");
+        expect(card1.sides[1].bodyRaw).to.be.equal("Card 1 Side B");
     });
 
     it("ignores additional level 1 headings before cards", function () {
@@ -114,10 +114,10 @@ describe("Card Set Parser", function () {
         
         const card1 = cardSet.card(0);
         expect(card1).to.be.not.undefined;
-        expect(card1.sideA.titleRaw).to.be.equal("Side A1");
-        expect(card1.sideA.bodyRaw).to.be.equal("");
-        expect(card1.sideB.titleRaw).to.be.equal("Side B1");
-        expect(card1.sideB.bodyRaw).to.be.equal("# Another l1 heading");
+        expect(card1.sides[0].titleRaw).to.be.equal("Side A1");
+        expect(card1.sides[0].bodyRaw).to.be.equal("");
+        expect(card1.sides[1].titleRaw).to.be.equal("Side B1");
+        expect(card1.sides[1].bodyRaw).to.be.equal("# Another l1 heading");
     });
 
     it("trims whitespaces at start and end", function () {
@@ -130,17 +130,17 @@ describe("Card Set Parser", function () {
         
         const card1 = cardSet.card(0);
         expect(card1).to.be.not.undefined;
-        expect(card1.sideA.titleRaw).to.be.equal("Side A1");
-        expect(card1.sideA.bodyRaw).to.be.equal("Card 1 Side A");
-        expect(card1.sideB.titleRaw).to.be.equal("Side B1");
-        expect(card1.sideB.bodyRaw).to.be.equal("Card 1 Side B");
+        expect(card1.sides[0].titleRaw).to.be.equal("Side A1");
+        expect(card1.sides[0].bodyRaw).to.be.equal("Card 1 Side A");
+        expect(card1.sides[1].titleRaw).to.be.equal("Side B1");
+        expect(card1.sides[1].bodyRaw).to.be.equal("Card 1 Side B");
 
         const card2 = cardSet.card(1);
         expect(card2).to.be.not.undefined;
-        expect(card2.sideA.titleRaw).to.be.equal("Side A2");
-        expect(card2.sideA.bodyRaw).to.be.equal("Card 2 Side A");
-        expect(card2.sideB.titleRaw).to.be.equal("Side B2");
-        expect(card2.sideB.bodyRaw).to.be.equal("Card 2 Side B");
+        expect(card2.sides[0].titleRaw).to.be.equal("Side A2");
+        expect(card2.sides[0].bodyRaw).to.be.equal("Card 2 Side A");
+        expect(card2.sides[1].titleRaw).to.be.equal("Side B2");
+        expect(card2.sides[1].bodyRaw).to.be.equal("Card 2 Side B");
     });
 
     it("ignores dangling level 3 heading", function () {
@@ -151,10 +151,10 @@ describe("Card Set Parser", function () {
         
         const card1 = cardSet.card(0);
         expect(card1).to.be.not.undefined;
-        expect(card1.sideA.titleRaw).to.be.equal("Side A1");
-        expect(card1.sideA.bodyRaw).to.be.equal("");
-        expect(card1.sideB.titleRaw).to.be.equal("Side B1");
-        expect(card1.sideB.bodyRaw).to.be.equal("");
+        expect(card1.sides[0].titleRaw).to.be.equal("Side A1");
+        expect(card1.sides[0].bodyRaw).to.be.equal("");
+        expect(card1.sides[1].titleRaw).to.be.equal("Side B1");
+        expect(card1.sides[1].bodyRaw).to.be.equal("");
     });
 });
 

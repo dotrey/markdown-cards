@@ -1,20 +1,14 @@
 import { CardSide } from "./CardSide";
 
 export class Card {
-    private _sideA: CardSide;
-    private _sideB: CardSide;
-    
-    constructor(sideA: CardSide, sideB: CardSide) {
-        this._sideA = sideA;
-        this._sideB = sideB;
-    }
+    sides: CardSide[] = [];
 
-    get sideA(): CardSide {
-        return this._sideA;
-    }
-
-    get sideB(): CardSide {
-        return this._sideB;
+    constructor(sides: CardSide[]) {
+        this.sides = [...sides];
+        while (this.sides.length < 2) {
+            let text = `Missing Card Side ${this.sides.length}`;
+            this.sides.push(new CardSide(text, text, text, text, text, text));
+        }
     }
 
 }
