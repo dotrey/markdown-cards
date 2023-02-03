@@ -11,6 +11,7 @@ describe("Card Set Loader", function () {
         return loader.load(SingleCard)
             .then((cardSet) => {
                 expect(cardSet.length).to.be.equal(1);
+                
                 const card = cardSet.card(0);
                 expect(card).to.be.not.undefined;
                 expect(card.sideA.titleRaw).to.be.equal("Side A");
@@ -23,6 +24,7 @@ describe("Card Set Loader", function () {
         return loader.load("./test/cards/cardset-1.md")
             .then((cardSet) => {
                 expect(cardSet.length).to.be.equal(3);
+
                 const card = cardSet.card(0);
                 expect(card).to.be.not.undefined;
                 expect(card.sideA.titleRaw).to.be.equal("Card 1 Side A");
@@ -31,23 +33,34 @@ describe("Card Set Loader", function () {
     });
     
 
-    it("loads a different md file", function () {
+    it("loads a more complex md file", function () {
         const loader = new CardSetLoader(new LocalFileLoader());
-        return loader.load("./test/cards/cardset-1.md")
+        return loader.load("./test/cards/cardset-2.md")
             .then((cardSet) => {
+                expect(cardSet.title).to.be.equal("Cardset 2");
+                expect(cardSet.abstract).to.be.equal("A more elaborate test.");
                 expect(cardSet.length).to.be.equal(3);
+
                 const card1 = cardSet.card(0);
                 expect(card1).to.be.not.undefined;
                 expect(card1.sideA.titleRaw).to.be.equal("Card 1 Side A");
+                expect(card1.sideA.bodyRaw).to.be.equal("This is 1/A.");
                 expect(card1.sideB.titleRaw).to.be.equal("Card 1 Side B");
+                expect(card1.sideB.bodyRaw).to.be.equal("This is 1/B.");
+
                 const card2 = cardSet.card(1);
                 expect(card2).to.be.not.undefined;
                 expect(card2.sideA.titleRaw).to.be.equal("Card 2 Side A");
+                expect(card2.sideA.bodyRaw).to.be.equal("This is 2/A.");
                 expect(card2.sideB.titleRaw).to.be.equal("Card 2 Side B");
+                expect(card2.sideB.bodyRaw).to.be.equal("This is 2/B.");
+
                 const card3 = cardSet.card(2);
                 expect(card3).to.be.not.undefined;
                 expect(card3.sideA.titleRaw).to.be.equal("Card 3 Side A");
+                expect(card3.sideA.bodyRaw).to.be.equal("This is 3/A.");
                 expect(card3.sideB.titleRaw).to.be.equal("Card 3 Side B");
+                expect(card3.sideB.bodyRaw).to.be.equal("This is 3/B.");
             });
     });
 });

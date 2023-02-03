@@ -11,7 +11,7 @@ export class CardSideBuilder {
         this.title = value.trim();
         this._hasContent = true;
         return this;
-    }
+    }    
     appendTitle(value: string) {
         if (this.title) {
             this.title += "\n";

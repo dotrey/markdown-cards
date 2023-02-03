@@ -6,21 +6,27 @@ export class CardSetBuilder {
 
     private title: string = "";
     setTitle(value: string) {
-        this.title = value;
+        this.title = value.trim();
         return this;
     }
     appendTitle(value: string) {
-        this.title += value;
+        if (this.title) {
+            this.title += "\n";
+        }
+        this.title += value.trim();
         return this;
     }
     
     private abstract: string = "";
     setAbstract(value: string) {
-        this.abstract = value;
+        this.abstract = value.trim();
         return this;
     }
     appendAbstract(value: string) {
-        this.abstract += value;
+        if (this.abstract) {
+            this.abstract += "\n";
+        }
+        this.abstract += value.trim();
         return this;
     }
     
@@ -37,7 +43,7 @@ export class CardSetBuilder {
     }
 
     build(): CardSet {
-        return new CardSet(this.cards, this.title, this.abstract, this.file);
+        return new CardSet(this.cards, this.title.trim(), this.abstract.trim(), this.file);
     }
 
     buildErrorSet(errorMessage: string, file: string) {

@@ -142,6 +142,20 @@ describe("Card Set Parser", function () {
         expect(card2.sideB.titleRaw).to.be.equal("Side B2");
         expect(card2.sideB.bodyRaw).to.be.equal("Card 2 Side B");
     });
+
+    it("ignores dangling level 3 heading", function () {
+        const parser = new CardSetParser();
+        const cardSet = parser.parse(DanglingLevel3Heading);
+
+        expect(cardSet.length).to.be.equal(1);
+        
+        const card1 = cardSet.card(0);
+        expect(card1).to.be.not.undefined;
+        expect(card1.sideA.titleRaw).to.be.equal("Side A1");
+        expect(card1.sideA.bodyRaw).to.be.equal("");
+        expect(card1.sideB.titleRaw).to.be.equal("Side B1");
+        expect(card1.sideB.bodyRaw).to.be.equal("");
+    });
 });
 
 export const SingleCard = `## Side A
@@ -225,3 +239,12 @@ Card 1 Side A
   Card 2 Side B
   
 `;
+
+export const DanglingLevel3Heading = `# Actual heading
+Abstract
+
+### A dangling l3 heading
+Ignore this
+
+## Side A1
+### Side B1`;

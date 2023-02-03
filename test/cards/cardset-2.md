@@ -1,6 +1,9 @@
 # Cardset 2
 A more elaborate test.
 
+### Dangling Card Side B
+This should be ignored.
+
 ## Card 1 Side A
 This is 1/A.
 ### Card 1 Side B

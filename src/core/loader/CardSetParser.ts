@@ -10,20 +10,24 @@ import { CardSideBuilder } from "./CardSideBuilder";
  * are ignored. Their keywords remain unchanged.
  * 
  * Only inline syntax for text formatting is supported, sth. like a link or image won't
- * work either an will remain unchangend.
+ * work either and will remain unchangend.
  */
 export class CardSetParser {
+
     parse(source: string, file: string = ""): CardSet {
         let setBuilder: CardSetBuilder = new CardSetBuilder();
-        setBuilder.setFile(file);
         let sideBuilder: CardSideBuilder = new CardSideBuilder();
-        let state: number = 0;
         let sides: CardSide[] = [];
+        let state: number = 0;
+        
+        setBuilder.setFile(file);
+
         for (const line of source.split("\n")) {
             if (!line) {
                 // skip empty lines
                 continue;
             }
+
             let startSymbol: string = line.substring(0, line.indexOf(" "));
             switch (startSymbol) {                
                 case "#":
@@ -51,6 +55,10 @@ export class CardSetParser {
                     state = 3;
                     if (sideBuilder.hasContent()) {
                         sides.push(sideBuilder.build());
+                    } else {
+                        // If the SideBuilder has no content yet, there was no level 2 heading before
+                        // -> this is a dangling level 3 heading that can be ignored
+                        break;
                     }
 
                     sideBuilder = new CardSideBuilder();

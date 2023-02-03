@@ -34,7 +34,7 @@ And that's it for the flashcards!
 
 You can create and edit these files directly in GitHub or with any simple text editor. And since MDC uses GitHub as its base, it is very easy for multiple users to collaborate when creating and editing sets of cards.
 
-> Note: whitespaces at the beginning and end of a flashcard's values will be removed.
+> Note: whitespaces at the beginning and end of a flashcard's values' lines will be removed.
 
 ## The Technical Part
 You now know how to create and maintain your sets of cards, but how can you actually use them?
