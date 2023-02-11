@@ -20,6 +20,6 @@ export class CardSetLoader {
     }
 
     private buildErrorSet(message: string, file: string) {
-        return (new CardSetBuilder()).buildErrorSet(message, file);
+        return (new CardSetBuilder(file)).buildErrorSet(message, file);
     }
 }

@@ -1,6 +1,11 @@
 import { CardSide } from "../model/CardSide";
 
 export class CardSideBuilder {
+
+    constructor(private file: string) {
+        
+    }
+
     private _hasContent: boolean = false;
     hasContent() {
         return this._hasContent;
@@ -42,7 +47,7 @@ export class CardSideBuilder {
         let bodyText: string = this.body;
         let titleHtml: string = this.title;
         let bodyHtml: string = this.body;
-        return new CardSide(this.title.trim(), titleText, titleHtml, this.body.trim(), bodyText, bodyHtml);
+        return new CardSide(this.file, this.title.trim(), titleText, titleHtml, this.body.trim(), bodyText, bodyHtml);
     }
 
     reset() {

@@ -15,12 +15,10 @@ import { CardSideBuilder } from "./CardSideBuilder";
 export class CardSetParser {
 
     parse(source: string, file: string = ""): CardSet {
-        let setBuilder: CardSetBuilder = new CardSetBuilder();
-        let sideBuilder: CardSideBuilder = new CardSideBuilder();
+        let setBuilder: CardSetBuilder = new CardSetBuilder(file);
+        let sideBuilder: CardSideBuilder = new CardSideBuilder(file);
         let sides: CardSide[] = [];
         let state: number = 0;
-        
-        setBuilder.setFile(file);
 
         for (const line of source.split("\n")) {
             if (!line) {
@@ -61,7 +59,7 @@ export class CardSetParser {
                         break;
                     }
 
-                    sideBuilder = new CardSideBuilder();
+                    sideBuilder = new CardSideBuilder(file);
                     sideBuilder.setTitle(line.substring(4));
                     break;
             

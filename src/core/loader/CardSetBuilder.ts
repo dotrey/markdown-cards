@@ -4,6 +4,10 @@ import { CardSide } from "../model/CardSide";
 
 export class CardSetBuilder {
 
+    constructor(private file: string) {
+        
+    }
+
     private title: string = "";
     setTitle(value: string) {
         this.title = value.trim();
@@ -29,12 +33,6 @@ export class CardSetBuilder {
         this.abstract += value.trim();
         return this;
     }
-    
-    private file: string = "";
-    setFile(value: string) {
-        this.file = value;
-        return this;
-    }
 
     private cards: Card[] = [];
     addCard(card: Card) {
@@ -52,8 +50,8 @@ export class CardSetBuilder {
         cards.push(
             new Card(
                 [
-                    new CardSide(errorTitle, errorTitle, errorTitle, errorMessage, errorMessage, errorMessage),
-                    new CardSide(errorTitle, errorTitle, errorTitle, errorMessage, errorMessage, errorMessage)
+                    new CardSide(this.file, errorTitle, errorTitle, errorTitle, errorMessage, errorMessage, errorMessage),
+                    new CardSide(this.file, errorTitle, errorTitle, errorTitle, errorMessage, errorMessage, errorMessage)
                 ]
             )
         );
