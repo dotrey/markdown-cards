@@ -1,11 +1,11 @@
 import { Chapter } from "./Chapter";
 
 export class Book {
-    name: string;
+    title: string;
     chapters: Chapter[] = [];
 
-    constructor(name: string, chapters: Chapter[]) {
-        this.name = name;
+    constructor(title: string, chapters: Chapter[]) {
+        this.title = title;
         this.chapters = [...chapters];
     }
 }

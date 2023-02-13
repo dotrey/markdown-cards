@@ -13,7 +13,7 @@ export class CardSetLoader {
     async load(file: string): Promise<CardSet> {
         try {
             let content = await this.fileLoader.load(file);
-            return this.parser.parse(content);
+            return this.parser.parse(content, file);
         } catch (e) {
             return this.buildErrorSet((e as Error).message, file)
         }
