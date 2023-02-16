@@ -1,4 +1,3 @@
-import { Book } from "../model/Book";
 import { Library } from "../model/Library";
 import { PathMerger } from "../utility/PathMerger";
 import { BookBuilder } from "./BookBuilder";
@@ -7,7 +6,6 @@ import { FileLoader } from "./FileLoader";
 import { LibraryBuilder } from "./LibraryBuilder";
 
 export class LibraryParser {
-    private bookMap: {[name: string]: Book} = {}
 
     parse(source: string, fileLoader: FileLoader, pathMerger: PathMerger): Library {
         let libraryBuilder: LibraryBuilder = new LibraryBuilder();
