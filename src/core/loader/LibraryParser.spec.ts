@@ -67,6 +67,31 @@ describe("Library Parser", function () {
         expect(lib.books[2].chapters[0].title).to.be.equal("Chapter 1");
         expect(lib.books[2].chapters[0].file).to.be.equal("http://test.local/book3/chapter1.md");
     });
+
+    it("parses library with multiple books and merges duplicate books", function () {
+        const parser = new LibraryParser();
+        const lib = parser.parse(LibMultipleBooksWithDuplicate, new FileLoader(), new PathMerger("http://test.local/mdc/"));
+
+        expect(lib.name).to.be.equal("Library 1");
+        expect(lib.books.length).to.be.equal(3);
+
+        expect(lib.books[0].title).to.be.equal("Book 1");
+        expect(lib.books[0].chapters.length).to.be.equal(5);
+        expect(lib.books[0].chapters[0].title).to.be.equal("Chapter 1");
+        expect(lib.books[0].chapters[0].file).to.be.equal("http://test.local/mdc/book1/chapter1.md");
+        expect(lib.books[0].chapters[4].title).to.be.equal("Chapter 5");
+        expect(lib.books[0].chapters[4].file).to.be.equal("http://test.local/mdc/book1/chapter5.md");
+
+        expect(lib.books[1].title).to.be.equal("Book 2");
+        expect(lib.books[1].chapters.length).to.be.equal(3);
+        expect(lib.books[1].chapters[0].title).to.be.equal("Chapter 1");
+        expect(lib.books[1].chapters[0].file).to.be.equal("http://test.local/mdc/book2/chapter1.md");
+
+        expect(lib.books[2].title).to.be.equal("Book 3");
+        expect(lib.books[2].chapters.length).to.be.equal(3);
+        expect(lib.books[2].chapters[0].title).to.be.equal("Chapter 1");
+        expect(lib.books[2].chapters[0].file).to.be.equal("http://test.local/book3/chapter1.md");
+    });
 });
 
 export const LibOnlyTitle = `# Library 1
@@ -107,4 +132,29 @@ There are no books or chapters here.
 - [Chapter 1](/book3/chapter1.md)
 - [Chapter 2](/book3/chapter2.md)
 - [Chapter 3](/book3/chapter3.md)
+`
+
+export const LibMultipleBooksWithDuplicate = `# Library 1
+There are no books or chapters here.
+[useless link](/sth.md)
+
+## Book 1
+- [Chapter 1](book1/chapter1.md)
+- [Chapter 2](book1/chapter2.md)
+- [Chapter 3](book1/chapter3.md)
+
+## Book 2
+- [Chapter 1](./book2/chapter1.md)
+- [Chapter 2](./book2/chapter2.md)
+- [Chapter 3](./book2/chapter3.md)
+
+## Book 3
+- [Chapter 1](/book3/chapter1.md)
+- [Chapter 2](/book3/chapter2.md)
+- [Chapter 3](/book3/chapter3.md)
+
+## Book 1
+- [Chapter 1](book1/chapter1.md)
+- [Chapter 4](book1/chapter4.md)
+- [Chapter 5](book1/chapter5.md)
 `

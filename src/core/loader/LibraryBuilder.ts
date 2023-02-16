@@ -11,11 +11,22 @@ export class LibraryBuilder {
 
     private books: Book[] = [];
     addBook(book: Book) {
-        for (let b of this.books) {
-            if (b.title === book.title) {
+        for (let oldBook of this.books) {
+            if (oldBook.title === book.title) {
                 // There is already a book with the same name
-                // -> merge the chapters
-                b.chapters = b.chapters.concat(book.chapters);
+                // -> merge the chapters, but don't add chapters if there already is one pointing to the same file
+                for (const newChapter of book.chapters) {
+                    let isDuplicate: boolean = false;
+                    for (const chapter of oldBook.chapters) {
+                        if (chapter.file === newChapter.file) {
+                            isDuplicate = true;
+                            break;
+                        }
+                    }
+                    if (!isDuplicate) {
+                        oldBook.chapters.push(newChapter);
+                    }
+                }
                 return;
             }
         }
