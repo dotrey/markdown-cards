@@ -1,61 +1,71 @@
-import { Card } from "../model/Card";
-import { CardSet } from "../model/CardSet";
-import { CardSide } from "../model/CardSide";
+import { Card } from '../model/Card'
+import { CardSet } from '../model/CardSet'
+import { CardSide } from '../model/CardSide'
 
 export class CardSetBuilder {
+  constructor(private file: string) {}
 
-    constructor(private file: string) {
-        
+  private title: string = ''
+  setTitle(value: string) {
+    this.title = value.trim()
+    return this
+  }
+  appendTitle(value: string) {
+    if (this.title) {
+      this.title += '\n'
     }
+    this.title += value.trim()
+    return this
+  }
 
-    private title: string = "";
-    setTitle(value: string) {
-        this.title = value.trim();
-        return this;
+  private abstract: string = ''
+  setAbstract(value: string) {
+    this.abstract = value.trim()
+    return this
+  }
+  appendAbstract(value: string) {
+    if (this.abstract) {
+      this.abstract += '\n'
     }
-    appendTitle(value: string) {
-        if (this.title) {
-            this.title += "\n";
-        }
-        this.title += value.trim();
-        return this;
-    }
-    
-    private abstract: string = "";
-    setAbstract(value: string) {
-        this.abstract = value.trim();
-        return this;
-    }
-    appendAbstract(value: string) {
-        if (this.abstract) {
-            this.abstract += "\n";
-        }
-        this.abstract += value.trim();
-        return this;
-    }
+    this.abstract += value.trim()
+    return this
+  }
 
-    private cards: Card[] = [];
-    addCard(card: Card) {
-        this.cards.push(card);
-        return this;
-    }
+  private cards: Card[] = []
+  addCard(card: Card) {
+    this.cards.push(card)
+    return this
+  }
 
-    build(): CardSet {
-        return new CardSet(this.cards, this.title.trim(), this.abstract.trim(), this.file);
-    }
+  build(): CardSet {
+    return new CardSet(this.cards, this.title.trim(), this.abstract.trim(), this.file)
+  }
 
-    buildErrorSet(errorMessage: string, file: string) {
-        let cards: Card[] = [];
-        let errorTitle: string = "An error occurred"
-        cards.push(
-            new Card(
-                [
-                    new CardSide(this.file, errorTitle, errorTitle, errorTitle, errorMessage, errorMessage, errorMessage),
-                    new CardSide(this.file, errorTitle, errorTitle, errorTitle, errorMessage, errorMessage, errorMessage)
-                ]
-            )
-        );
-        return new CardSet(cards, errorTitle, errorMessage, file)
-    }
-
+  buildErrorSet(errorMessage: string, file: string) {
+    let cards: Card[] = []
+    let errorTitle: string = 'An error occurred'
+    cards.push(
+      new Card([
+        new CardSide(
+          this.file,
+          errorTitle,
+          errorTitle,
+          errorTitle,
+          errorMessage,
+          errorMessage,
+          errorMessage
+        ),
+        new CardSide(
+          this.file,
+          errorTitle,
+          errorTitle,
+          errorTitle,
+          errorMessage,
+          errorMessage,
+          errorMessage
+        )
+      ])
+    )
+    return new CardSet(cards, errorTitle, errorMessage, file)
+  }
 }

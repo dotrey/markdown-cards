@@ -1,11 +1,7 @@
 export class PathMerger {
+  constructor(public baseUrl: string) {}
 
-    constructor(public baseUrl: string) {
-
-    }
-
-    merge(path: string): string {
-        return new URL(path, this.baseUrl).toString();
-    }
-
+  merge(path: string): string {
+    return new URL(path, this.baseUrl).toString()
+  }
 }
