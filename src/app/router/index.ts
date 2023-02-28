@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import BookView from '../views/BookView.vue';
 import HomeView from '../views/HomeView.vue';
 import LibraryView from '../views/LibraryView.vue';
 
@@ -13,7 +14,13 @@ const router = createRouter({
     {
       path: '/library',
       name: 'library',
-      component: LibraryView
+      component: LibraryView,
+    },
+    {
+      path: '/book/:id',
+      name: 'book',
+      component: BookView,
+      props: true
     }
   ]
 });

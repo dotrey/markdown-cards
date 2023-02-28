@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import HeaderComponent from '../components/HeaderComponent.vue';
 import { useMarkdownCardsStore } from '../stores/markdownCards';
-import BookComponent from '../components/BookComponent.vue';
+import ChapterComponent from '../components/ChapterComponent.vue';
+
+const props = defineProps<{
+  id: string
+}>();
 
 const mdc = useMarkdownCardsStore();
+let book = mdc.library.bookMap[props.id];
 </script>
 
 <template>
-  <HeaderComponent title="Library" />
+  <HeaderComponent :title="book.title" subtitle="Book" />
   <main>
-    <BookComponent v-for="book in mdc.library.books" :book="book"/>
+    <ChapterComponent v-for="chapter in book.chapters" :chapter="chapter"/>
   </main>
 </template>
 
