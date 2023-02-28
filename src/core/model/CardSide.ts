@@ -1,19 +1,19 @@
-import { MD5 } from 'crypto-js'
+import { MD5 } from 'crypto-js';
 
 export class CardSide {
-  id: string = ''
+  id: string = '';
   html: {
-    title: string
-    body: string
-  }
+    title: string;
+    body: string;
+  };
   text: {
-    title: string
-    body: string
-  }
+    title: string;
+    body: string;
+  };
   raw: {
-    title: string
-    body: string
-  }
+    title: string;
+    body: string;
+  };
 
   constructor(
     file: string,
@@ -27,16 +27,16 @@ export class CardSide {
     this.html = {
       title: titleHtml,
       body: bodyHtml
-    }
+    };
     this.text = {
       title: titleText,
       body: bodyText
-    }
+    };
     this.raw = {
       title: titleRaw,
       body: bodyRaw
-    }
+    };
 
-    this.id = `${MD5(file)}-${MD5(this.text.title + '|||' + this.text.body)}`
+    this.id = `${MD5(file)}-${MD5(this.text.title + '|||' + this.text.body)}`;
   }
 }

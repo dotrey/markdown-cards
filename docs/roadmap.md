@@ -12,7 +12,7 @@ __Scope:__
 - Create a card set containing the flashcards from the parsed file
 
 ## 02 - Parse Library Index
-__Reached:__ -
+__Reached:__ 2023-02-19
 
 __Scope:__
 - Parse the `index.md` file

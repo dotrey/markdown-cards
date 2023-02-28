@@ -1,11 +1,11 @@
-import { Book } from './Book'
+import type { Book } from './Book';
 
 export class Library {
-  books: Book[] = []
-  name: string = ''
+  books: Book[] = [];
+  name: string = '';
 
   constructor(name: string, books: Book[]) {
-    this.name = name
-    this.books = [...books]
+    this.name = name;
+    this.books = [...books];
   }
 }

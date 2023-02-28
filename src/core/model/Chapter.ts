@@ -1,53 +1,42 @@
-import { MD5 } from 'crypto-js'
-import { CardSetLoader } from '../loader/CardSetLoader'
-import { Card } from './Card'
-import { CardSet } from './CardSet'
+import { MD5 } from 'crypto-js';
+import type { CardSetLoader } from '../loader/CardSetLoader';
+import type { Card } from './Card';
+import type { CardSet } from './CardSet';
+import { ChapterDetails } from './ChapterDetails';
 
 export class Chapter {
-  private cardset: CardSet | null = null
-  private _cards: Card[] = []
-  private _cardIds: string[] = []
-  private _cardMapping: { [index: string]: Card } = {}
-  id: string
+  cardset: CardSet | null = null;
+  cards: Card[] = [];
+  cardIds: string[] = [];
+  cardMapping: { [index: string]: Card } = {};
+  id: string;
+  details: ChapterDetails;
+  isLoaded: boolean = false;
 
   constructor(public file: string, public title: string, private loader: CardSetLoader) {
-    this.id = MD5(file).toString()
+    this.id = MD5(file).toString();
+    this.details = new ChapterDetails();
   }
 
-  async cards(): Promise<Card[]> {
-    if (!this.cardset) {
-      await this.loadCardSet()
+  async load(): Promise<void> {
+    // Note: when loading, we reset the current values without removing/replacing it.
+    // This keeps the reference to the object/array intact.
+
+    this.cardset = await this.loader.load(this.file);
+    this.cards.length = 0;
+    for (const card of this.cardset.cards) {
+      this.cards.push(card);
     }
-    return this._cards
-  }
-
-  async cardIds(): Promise<string[]> {
-    if (!this.cardset) {
-      await this.loadCardSet()
+    for (const key in this.cardMapping) {
+      if (this.cardMapping.hasOwnProperty(key)) {
+        delete this.cardMapping[key];
+      }
     }
-    return this._cardIds
-  }
-
-  async card(id: string): Promise<Card> {
-    if (!this.cardset) {
-      await this.loadCardSet()
-    }
-
-    return this._cardMapping[id]
-  }
-
-  private async loadCardSet(): Promise<void> {
-    this.cardset = await this.loader.load(this.file)
-    this._cards = [...this.cardset.cards]
-    this._cardMapping = {}
-    this._cardIds = []
-    this._cards.forEach((card) => {
-      this._cardMapping[card.id] = card
-      this._cardIds.push(card.id)
-    })
-  }
-
-  get isLoaded(): boolean {
-    return this.cardset !== null
+    this.cardIds.length = 0;
+    this.cards.forEach((card) => {
+      this.cardMapping[card.id] = card;
+      this.cardIds.push(card.id);
+    });
+    this.isLoaded = true;
   }
 }

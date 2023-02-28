@@ -1,8 +1,8 @@
-import { Card } from '../model/Card'
-import { CardSet } from '../model/CardSet'
-import { CardSide } from '../model/CardSide'
-import { CardSetBuilder } from './CardSetBuilder'
-import { CardSideBuilder } from './CardSideBuilder'
+import { Card } from '../model/Card';
+import type { CardSet } from '../model/CardSet';
+import type { CardSide } from '../model/CardSide';
+import { CardSetBuilder } from './CardSetBuilder';
+import { CardSideBuilder } from './CardSideBuilder';
 
 /**
  * MDC uses only a subset of the available Markdown syntax and especially only allows
@@ -14,68 +14,68 @@ import { CardSideBuilder } from './CardSideBuilder'
  */
 export class CardSetParser {
   parse(source: string, file: string = ''): CardSet {
-    let setBuilder: CardSetBuilder = new CardSetBuilder(file)
-    let sideBuilder: CardSideBuilder = new CardSideBuilder(file)
-    let sides: CardSide[] = []
-    let state: number = 0
+    let setBuilder: CardSetBuilder = new CardSetBuilder(file);
+    let sideBuilder: CardSideBuilder = new CardSideBuilder(file);
+    let sides: CardSide[] = [];
+    let state: number = 0;
 
     for (const line of source.split('\n')) {
       if (!line) {
         // skip empty lines
-        continue
+        continue;
       }
 
-      let startSymbol: string = line.substring(0, line.indexOf(' '))
+      let startSymbol: string = line.substring(0, line.indexOf(' '));
       switch (startSymbol) {
         case '#':
           if (state === 0) {
             // Level 1 heading, only allowed at the begining of the document, all further appearances will
             // be treated like a normal text line
-            setBuilder.setTitle(line.substring(2))
-            state = 1
+            setBuilder.setTitle(line.substring(2));
+            state = 1;
           } else if (state > 1) {
             // Only append if state indicates we are building a card side
-            sideBuilder.appendBody(line)
+            sideBuilder.appendBody(line);
           }
-          break
+          break;
 
         case '##':
           // Level 2 heading, start with a new side A
-          state = 2
-          this.tryBuildCard(sides, sideBuilder, setBuilder)
+          state = 2;
+          this.tryBuildCard(sides, sideBuilder, setBuilder);
 
-          sideBuilder.setTitle(line.substring(3))
-          break
+          sideBuilder.setTitle(line.substring(3));
+          break;
 
         case '###':
           // Level 3 heading, create a side B
-          state = 3
+          state = 3;
           if (sideBuilder.hasContent()) {
-            sides.push(sideBuilder.build())
+            sides.push(sideBuilder.build());
           } else {
             // If the SideBuilder has no content yet, there was no level 2 heading before
             // -> this is a dangling level 3 heading that can be ignored
-            break
+            break;
           }
 
-          sideBuilder = new CardSideBuilder(file)
-          sideBuilder.setTitle(line.substring(4))
-          break
+          sideBuilder = new CardSideBuilder(file);
+          sideBuilder.setTitle(line.substring(4));
+          break;
 
         default:
           if (state === 1) {
             // Append to set abstract
-            setBuilder.appendAbstract(line)
+            setBuilder.appendAbstract(line);
           } else if (sideBuilder.hasContent()) {
             // Append to side body, but only if we already have some content for the side (at least a title)
-            sideBuilder.appendBody(line)
+            sideBuilder.appendBody(line);
           }
-          break
+          break;
       }
     }
 
-    this.tryBuildCard(sides, sideBuilder, setBuilder)
-    return setBuilder.build()
+    this.tryBuildCard(sides, sideBuilder, setBuilder);
+    return setBuilder.build();
   }
 
   private tryBuildCard(
@@ -84,19 +84,19 @@ export class CardSetParser {
     setBuilder: CardSetBuilder
   ) {
     if (sideBuilder.hasContent()) {
-      sides.push(sideBuilder.build())
+      sides.push(sideBuilder.build());
     }
-    sideBuilder.reset()
+    sideBuilder.reset();
     if (sides.length > 0) {
       if (sides.length < 2) {
         // We have one side for a card, but are missing a second one
         // -> add a second empty side
-        sides.push(sideBuilder.build())
+        sides.push(sideBuilder.build());
       }
 
       // Add the card with the previously collected sides to the set
-      setBuilder.addCard(new Card(sides))
-      sides.length = 0
+      setBuilder.addCard(new Card(sides));
+      sides.length = 0;
     }
   }
 }
