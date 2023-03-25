@@ -28,6 +28,8 @@
   --color-background-mute: #f2f2f2;
 
   --color-text: #000000;
+  --color-text-mid: #444444;
+  --color-text-light: #888888;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -1,12 +1,17 @@
-# Test Cards
-These files contain cards used in tests, do not modify without checking the tests.
+# Markdown Cards
+This is an example library with some books and flashcards.
 
-## Book 1
-- [Cardset 1](./cards/cardset-1.md)
+## Geography
+- [Capitals](./cards/geography/capitals.md)
+- [Rivers](./cards/geography/rivers.md)
 
-## Book 2
-- [Cardset 1](./cards/cardset-1.md)
-- [Cardset 2](./cards/cardset-2.md)
-
-## Book 3
-- [Cardset 2](./cards/cardset-2.md)
+## Math
+- [Multiples of 1](./cards/math/multiples1.md)
+- [Multiples of 2](./cards/math/multiples2.md)
+- [Multiples of 3](./cards/math/multiples3.md)
+- [Multiples of 4](./cards/math/multiples4.md)
+- [Multiples of 5](./cards/math/multiples5.md)
+- [Multiples of 6](./cards/math/multiples6.md)
+- [Multiples of 7](./cards/math/multiples7.md)
+- [Multiples of 8](./cards/math/multiples8.md)
+- [Multiples of 9](./cards/math/multiples9.md)

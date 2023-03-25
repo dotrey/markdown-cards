@@ -1,9 +1,16 @@
 <script setup lang="ts">
+import router from '../router';
+
 const props = defineProps(["chapter"]);
 </script>
 
 <template>
-    <div class="chapter">
+    <div class="chapter" @click="() => router.push({
+        name: 'chapter',
+        params: {
+            id: chapter.id
+        }
+    })">
         <h3>{{ chapter.title }}</h3>
     </div>
 </template>

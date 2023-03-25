@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Book } from '@/core/model/Book';
 import router from '../router';
 
 const props = defineProps(['book']);
