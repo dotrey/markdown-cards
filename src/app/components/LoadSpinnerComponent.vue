@@ -23,8 +23,8 @@
         width: 4em;
         height: 4em;
 
-        border: 5px solid var(--color-text-light);
-        border-right-color: var(--color-text);
+        border: 5px solid var(--main-text-sub);
+        border-right-color: var(--accent);
         border-radius: 50%;
         animation: rotateSpinner 800ms linear infinite;
     }

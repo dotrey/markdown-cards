@@ -3,7 +3,7 @@ const props = defineProps(["card"]);
 </script>
 
 <template>
-    <div class="card">
+    <div class="card shadow">
         <h3>{{ card.sides[0].text.title }}</h3>
         <p>{{  card.sides[0].text.body  }}</p>
         <hr>
@@ -16,7 +16,8 @@ const props = defineProps(["card"]);
 <style scoped>
 .card {
     padding: 1rem;
-    background-color: var(--color-background);
+    background-color: var(--card-background);
+    color: var(--card-text);
     border-radius: 0.5rem;
 }
 

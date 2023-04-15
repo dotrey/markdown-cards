@@ -13,7 +13,7 @@ const hasSubtitle = computed(() => {
 </script>
 
 <template>
-  <header @click="() => $router.back()">
+  <header @click="() => $router.back()" class="shadow">
     <ChevronLeftIcon class="backlink" />
     <h1 :class="{ 'with-subtitle': hasSubtitle }">{{ title }}</h1>
     <h2 v-if="hasSubtitle">{{ subtitle }}</h2>
@@ -22,7 +22,8 @@ const hasSubtitle = computed(() => {
 
 <style scoped>
 header {
-  background-color: var(--color-background);
+  background-color: var(--header-background);
+  color: var(--header-text);
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -42,7 +43,6 @@ h1 {
   font-weight: normal;
   padding: 0;
   margin: 0 2rem;
-  color: var(--color-text);
   line-height: 2;
 }
 
@@ -56,5 +56,6 @@ h2 {
   font-size: 1rem;
   font-weight: normal;
   line-height: 2;
+  color: var(--header-text-sub);
 }
 </style>

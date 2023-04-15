@@ -5,7 +5,7 @@ const props = defineProps(['book']);
 </script>
 
 <template>
-    <div class="book" @click="() => router.push({
+    <div class="book shadow" @click="() => router.push({
         name: 'book',
         params: {
             id: book.id
@@ -21,7 +21,8 @@ const props = defineProps(['book']);
 <style scoped>
 .book {
     padding: 1rem;
-    background-color: var(--color-background);
+    background-color: var(--card-background);
+    color: var(--card-text);
     border-radius: 0.5rem;
 }
 

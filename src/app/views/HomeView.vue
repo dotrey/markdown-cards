@@ -7,18 +7,18 @@ const count: Ref<string | number> = ref(10);
 <template>
   <main>
     <div class="center">
-      <div class="start-button">
+      <div class="start-button shadow">
         <span>Start Quiz!</span>
       </div>
 
-      <div class="count-button low-count" :class="{ selected: count === 10 }" @click="count = 10">
+      <div class="count-button low-count shadow" :class="{ selected: count === 10 }" @click="count = 10">
         10
       </div>
-      <div class="count-button mid-count" :class="{ selected: count === 25 }" @click="count = 25">
+      <div class="count-button mid-count shadow" :class="{ selected: count === 25 }" @click="count = 25">
         25
       </div>
       <div
-        class="count-button high-count"
+        class="count-button high-count shadow"
         :class="{ selected: count === 'all' }"
         @click="count = 'all'"
       >
@@ -26,7 +26,7 @@ const count: Ref<string | number> = ref(10);
       </div>
     </div>
 
-    <RouterLink to="/library" class="library-button"> Library </RouterLink>
+    <RouterLink to="/library" class="library-button shadow"> Library </RouterLink>
   </main>
 </template>
 
@@ -36,7 +36,6 @@ main {
   display: grid;
   grid-template-rows: 5rem 1fr 5rem;
   grid-template-columns: 10% 80% 10%;
-  background-color: var(--color-background-mute);
 }
 
 .library-button {
@@ -45,7 +44,7 @@ main {
   justify-self: stretch;
   align-self: center;
 
-  background-color: var(--color-background);
+  background-color: var(--card-background);
   border-radius: 0.5rem;
 
   text-align: center;
@@ -69,7 +68,7 @@ main {
 .start-button {
   grid-row: 1 / 1;
   grid-column: 1 / span 3;
-  background-color: var(--color-background);
+  background-color: var(--card-background);
   border-radius: 0.5rem;
 
   display: flex;
@@ -78,7 +77,7 @@ main {
 }
 
 .count-button {
-  background-color: var(--color-background);
+  background-color: var(--card-background);
   border-radius: 0.5rem;
   text-align: center;
   align-self: center;
