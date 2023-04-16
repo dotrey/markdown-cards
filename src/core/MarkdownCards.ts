@@ -3,17 +3,20 @@ import { LibraryLoader } from './loader/LibraryLoader';
 import type { Book } from './model/Book';
 import type { Chapter } from './model/Chapter';
 import type { Library } from './model/Library';
+import { LeitnerSystem } from './storage/LeitnerSystem';
 import { PathMerger } from './utility/PathMerger';
 
 export class MarkdownCards {
   private library: Library | null = null;
   private libraryLoader: LibraryLoader;
+  private LeitnerSystem: LeitnerSystem;
   bookMap: { [id: string]: Book } = {};
   chapterMap: { [id: string]: Chapter } = {};
   books: Book[] = [];
 
-  constructor() {
+  constructor(database: string = "MarkdownCards") {
     this.libraryLoader = new LibraryLoader(new FileLoader(), new PathMerger(location.href));
+    this.LeitnerSystem = new LeitnerSystem(database);
   }
 
   async load(): Promise<void> {
