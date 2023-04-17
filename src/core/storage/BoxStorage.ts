@@ -9,41 +9,50 @@ export class BoxStorage {
     private db: IDBPDatabase<BoxDatabase>|null = null;
     private dbVersion: number = 1;
 
-    constructor(database: string) {
-        this.connect(database);
+    constructor(private dbName: string) {
     }
 
     async getCard(id: string): Promise<StorageCard> {
-        return await this.db?.get("cards", id) || new StorageCard(id);
+        await this.connect();
+        return await this.db!.get("cards", id) || new StorageCard(id);
     }
 
     async storeCard(card: StorageCard) {
-        return await this.db?.put("cards", card, card.id);
+        await this.connect();
+        return await this.db!.put("cards", card);
     }
 
     async getCardsByBox(box: number): Promise<StorageCard[]> {
+        await this.connect();
         box = Math.min(5, Math.max(0, box));
-        return this.db?.getAllFromIndex("cards", "leitnerBox") || [];
+        return this.db!.getAllFromIndex("cards", "leitnerBox", box) || [];
     }
 
     async getChapter(id: string): Promise<StorageChapter> {
-        return await this.db?.get("chapters", id) || new StorageChapter(id);
+        await this.connect();
+        return await this.db!.get("chapters", id) || new StorageChapter(id);
     }
 
     async storeChapter(chapter: StorageChapter) {
-        return await this.db?.put("chapters", chapter, chapter.id);
+        await this.connect();
+        return await this.db!.put("chapters", chapter);
     }
 
     async getQuizSet(name: string = "default"): Promise<StorageQuizSet> {
-        return await this.db?.get("quizSets", name) || new StorageQuizSet(name);
+        await this.connect();
+        return await this.db!.get("quizSets", name) || new StorageQuizSet(name);
     }
 
     async storeQuizSet(quiz: StorageQuizSet) {
-        return await this.db?.put("quizSets", quiz, quiz.name);
+        await this.connect();
+        return await this.db!.put("quizSets", quiz);
     }
 
-    private async connect(database: string ) {
-        this.db = await openDB<BoxDatabase>(database, this.dbVersion, {
+    private async connect(reconnect: boolean = false) {
+        if (this.db && !reconnect) {
+            return;
+        }
+        this.db = await openDB<BoxDatabase>(this.dbName, this.dbVersion, {
             upgrade(db) {
                 const cardStore = db.createObjectStore("cards", {
                     keyPath: "id"
