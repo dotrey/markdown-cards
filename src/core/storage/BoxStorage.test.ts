@@ -8,7 +8,7 @@ import { StorageQuizSet } from "./model/StorageQuizSet";
 
 describe('BoxStorage', function () {
     beforeEach(function () {
-        // Make sure the indexedDb is empty
+        // Make sure the indexedDB is empty
         indexedDB = new IDBFactory();
     });
 

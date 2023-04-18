@@ -3,12 +3,14 @@ import { LibraryLoader } from './loader/LibraryLoader';
 import type { Book } from './model/Book';
 import type { Chapter } from './model/Chapter';
 import type { Library } from './model/Library';
+import { BoxStorage } from './storage/BoxStorage';
 import { LeitnerSystem } from './storage/LeitnerSystem';
 import { PathMerger } from './utility/PathMerger';
 
 export class MarkdownCards {
   private library: Library | null = null;
   private libraryLoader: LibraryLoader;
+  private storage: BoxStorage;
   private LeitnerSystem: LeitnerSystem;
   bookMap: { [id: string]: Book } = {};
   chapterMap: { [id: string]: Chapter } = {};
@@ -16,7 +18,8 @@ export class MarkdownCards {
 
   constructor(database: string = "MarkdownCards") {
     this.libraryLoader = new LibraryLoader(new FileLoader(), new PathMerger(location.href));
-    this.LeitnerSystem = new LeitnerSystem(database);
+    this.storage = new BoxStorage(database);
+    this.LeitnerSystem = new LeitnerSystem(this.storage);
   }
 
   async load(): Promise<void> {

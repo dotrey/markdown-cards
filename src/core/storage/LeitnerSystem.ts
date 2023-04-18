@@ -1,11 +1,8 @@
-import { BoxStorage } from "./BoxStorage";
+import type { BoxStorage } from "./BoxStorage";
 
 export class LeitnerSystem {
 
-    private storage: BoxStorage;
-
-    constructor(database: string) {
-        this.storage = new BoxStorage(database);
+    constructor(private storage: BoxStorage) {
     }
 
     async cardShown(id: string) {
