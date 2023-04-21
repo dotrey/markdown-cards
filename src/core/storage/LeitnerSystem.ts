@@ -1,4 +1,5 @@
 import type { BoxStorage } from "./BoxStorage";
+import type { StorageQuizSet } from "./model/StorageQuizSet";
 
 export class LeitnerSystem {
 
@@ -13,7 +14,7 @@ export class LeitnerSystem {
         }
         card.lastQuizzed = now;
         card.quizCount++;
-        this.storage.storeCard(card);
+        await this.storage.storeCard(card);
     }
 
     async cardKnown(id: string) {
@@ -22,7 +23,7 @@ export class LeitnerSystem {
             card.leitnerBox++;
         }
         card.quizStreak++;
-        this.storage.storeCard(card);
+        await this.storage.storeCard(card);
     }
 
     async cardNotKnown(id: string) {
@@ -33,7 +34,43 @@ export class LeitnerSystem {
             card.quizStreak--;
         }
         card.leitnerBox = 0;
-        this.storage.storeCard(card);
+        await this.storage.storeCard(card);
+    }
+
+    async quizGenerator(quizSet: StorageQuizSet): Promise<Generator<string | undefined, string, unknown>> {
+        const boxes: string[][] = [];
+
+        for (let i = 0; i < 5; i++) {
+            boxes[i] = (await this.storage.getCardsByBox(i))
+                .map((card) => card.id)
+                .filter((id: string) => {
+                    const chapterId: string = id.split("-")[0];
+                    return quizSet.chapters.includes(chapterId);
+                });
+            this.shuffle(boxes[i]);
+        }
+
+        const chances: number[] = [16, 8, 4, 2, 1];
+        const generator = function* () {
+            let length: number = 0;
+            for (let i = 0; i < 5; i++) {
+                length += boxes[i].length;
+            }
+            while (length > 0) {
+                const rnd = Math.floor(Math.random() * 32) + 1;
+                for (let i = 0; i < 5; i++) {
+                    if (boxes[i].length > 0 && rnd >= chances[i]) {
+                        length--;
+                        yield boxes[i].shift();
+                        break;
+                    }
+                }
+            }
+
+            return "";
+        }();
+
+        return generator;
     }
 
     dateStamp(date?: Date): number {
@@ -41,5 +78,15 @@ export class LeitnerSystem {
         return now.getUTCFullYear() * 10000 +
             now.getUTCMonth() * 100 +
             now.getUTCDate();
+    }
+
+    shuffle(array: string[]) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const x = array[i];
+            array[i] = array[j];
+            array[j] = x;
+        }
+        return array;
     }
 }
