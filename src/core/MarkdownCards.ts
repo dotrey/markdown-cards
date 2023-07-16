@@ -5,13 +5,16 @@ import type { Chapter } from './model/Chapter';
 import type { Library } from './model/Library';
 import { BoxStorage } from './storage/BoxStorage';
 import { LeitnerSystem } from './storage/LeitnerSystem';
+import type { StorageQuizSet } from './storage/model/StorageQuizSet';
+import { QuizMaster } from './storage/QuizMaster';
 import { PathMerger } from './utility/PathMerger';
 
 export class MarkdownCards {
   private library: Library | null = null;
   private libraryLoader: LibraryLoader;
   private storage: BoxStorage;
-  private LeitnerSystem: LeitnerSystem;
+  private leitnerSystem: LeitnerSystem;
+  private quizMaster: QuizMaster;
   bookMap: { [id: string]: Book } = {};
   chapterMap: { [id: string]: Chapter } = {};
   books: Book[] = [];
@@ -19,7 +22,8 @@ export class MarkdownCards {
   constructor(database: string = "MarkdownCards") {
     this.libraryLoader = new LibraryLoader(new FileLoader(), new PathMerger(location.href));
     this.storage = new BoxStorage(database);
-    this.LeitnerSystem = new LeitnerSystem(this.storage);
+    this.leitnerSystem = new LeitnerSystem(this.storage);
+    this.quizMaster = new QuizMaster(this.storage);
   }
 
   async load(): Promise<void> {
@@ -42,5 +46,17 @@ export class MarkdownCards {
         this.chapterMap[chapter.id] = chapter;
       }
     }
+  }
+
+  async enableChapter(chapter: Chapter|Chapter[]): Promise<StorageQuizSet> {
+    return this.quizMaster.enableChapter(chapter);
+  }
+
+  async disableChapter(chapter: Chapter|Chapter[]): Promise<StorageQuizSet> {
+    return this.quizMaster.disableChapter(chapter);
+  }
+
+  async getQuizSet(): Promise<StorageQuizSet> {
+    return this.quizMaster.getQuizSet();
   }
 }

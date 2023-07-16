@@ -1,12 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import type { Book } from '@/core/model/Book';
+import { computed, ref } from 'vue';
 import router from '../router';
+import { useMarkdownCardsStore } from '../stores/markdownCards';
 import CheckboxComponent from './CheckboxComponent.vue';
 
-const props = defineProps(['book']);
-const checked = ref(false);
+const mdc = useMarkdownCardsStore();
+const props = defineProps<{
+    book: Book
+}>();
+const checked = computed<boolean>(() => {
+    let enabled: number = 0;
+    for (const chapter of props.book.chapters) {
+        enabled += mdc.enabledChapters.includes(chapter.id) ? 1 : 0;
+    }
+    partial.value = enabled < props.book.chapters.length;
+    return enabled > 0;
+});
+const partial = ref<boolean>(false);
 function change(value: boolean) {
-    checked.value = value;
+    if (value) {
+        mdc.enableChapter(props.book.chapters);
+    } else {
+        mdc.disableChapter(props.book.chapters);
+    }
 }
 </script>
 
@@ -19,7 +36,7 @@ function change(value: boolean) {
         }
     })">{{  book.title }}</h3>
         <label class="checkbox">
-            <CheckboxComponent :checked="checked" :partial="true" @change="change"></CheckboxComponent>
+            <CheckboxComponent :checked="checked" :partial="partial" @change="change"></CheckboxComponent>
         </label>
         <div>
         </div>
